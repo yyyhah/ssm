@@ -21,7 +21,8 @@
 
     <!--spring整合mybatis-->
     <!--配置连接池-->
-    <context:property-placeholder location="classpath:druid.properties"/>
+    <!--这里system-properties-mode属性最好配置，否则默认是先去找系统属性，匹配的键，数据库的用户名如果正好用username就会撞车的-->
+    <context:property-placeholder location="classpath:druid.properties" system-properties-mode="FALLBACK"/>
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${driver}" />
         <property name="url" value="${url}" />
