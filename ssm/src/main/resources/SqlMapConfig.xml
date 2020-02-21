@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <properties resource="dbConfig.properties">
+    </properties>
+    <!--配置环境-->
+    <settings>
+        <!--设置二级缓存,其实不配也可以，因为默认为true-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--设置延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--设置侵入式加载-->
+        <setting name="aggressiveLazyLoading" value="true"/>
+    </settings>
+    <environments default="mysql">
+        <environment id="mysql">
+            <!--配置事务的类型-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--配置连接池 type取值共三种 POOLED表示使用连接池-->
+            <dataSource type="POOLED">
+                <!--配置连接数据库的4个基本属性-->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--上面配置的是mybatis的主配置文件，还需要指定每个dao独立的映射配置文件-->
+    <mappers>
+        <!--导入对应的mapper文件，如果没有，就找注解，这个name的路径这样写可以是java包下路径，也可以是resources下路劲-->
+        <package name="com.itcast.dao"/>
+    </mappers>
+</configuration>
